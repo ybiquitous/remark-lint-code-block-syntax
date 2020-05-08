@@ -1,0 +1,1 @@
+# remark-lint-code-block-syntax
