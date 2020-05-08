@@ -4,6 +4,12 @@
 
 A remark-lint rule to check language syntax in a code block.
 
+## Supported languages
+
+- JavaScript
+- JSON
+- YAML
+
 ## Install
 
 ```console
