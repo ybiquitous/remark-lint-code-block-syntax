@@ -7,7 +7,7 @@ A remark-lint rule to check language syntax in a code block.
 ## Install
 
 ```console
-$ npm install remark remark-lint-code-block-syntax
+$ npm install remark-lint-code-block-syntax
 ```
 
 ## Usage
