@@ -1,4 +1,4 @@
-![npm](https://img.shields.io/npm/v/remark-lint-code-block-syntax?style=flat-square)
+[![npm](https://img.shields.io/npm/v/remark-lint-code-block-syntax?style=flat-square)](https://www.npmjs.com/package/remark-lint-code-block-syntax)
 
 # remark-lint-code-block-syntax
 
