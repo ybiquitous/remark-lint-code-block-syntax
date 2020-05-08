@@ -1,3 +1,5 @@
+![npm](https://img.shields.io/npm/v/remark-lint-code-block-syntax?style=flat-square)
+
 # remark-lint-code-block-syntax
 
 A remark-lint rule to check language syntax in a code block.
