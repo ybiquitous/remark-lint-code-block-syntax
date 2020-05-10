@@ -22,5 +22,6 @@ jobs:
             sourceType: module
           env:
             node: true
+            jest: true
           EOF
       - run: npx eslint .
