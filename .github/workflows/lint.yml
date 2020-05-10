@@ -1,0 +1,27 @@
+name: Lint
+
+on:
+  push:
+    branches: [master]
+    tags: ["**"]
+  pull_request:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+      - run: |
+          cat <<'EOF' >.eslintrc.yml
+          extends: "eslint:recommended"
+          parserOptions:
+            sourceType: module
+          env:
+            es2017: true
+            node: true
+            jest: true
+          EOF
+      - run: npx eslint .
