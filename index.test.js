@@ -62,7 +62,7 @@ describe("YAML", () => {
         column: 1,
         line: 1,
         message:
-          "Invalid YAML: can not read a block mapping entry; a multiline key may not be an implicit key at line 3, column 1:",
+          "Invalid YAML: can not read a block mapping entry; a multiline key may not be an implicit key (3:1)",
         ruleId: "code-block-syntax",
         source: "remark-lint",
       },
