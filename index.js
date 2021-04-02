@@ -62,7 +62,7 @@ function codeSyntax(tree, file) {
 
   function checkYaml(code) {
     try {
-      yaml.safeLoad(code);
+      yaml.load(code);
       return null;
     } catch (e) {
       return e.message.split(/\r?\n/)[0];
