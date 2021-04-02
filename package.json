@@ -15,7 +15,8 @@
   "repository": "ybiquitous/remark-lint-code-block-syntax",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "npx eslint ."
   },
   "dependencies": {
     "esprima": "^4.0.1",
