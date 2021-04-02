@@ -14,14 +14,4 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: "14"
-      - run: |
-          cat <<'EOF' >.eslintrc.yml
-          extends: "eslint:recommended"
-          parserOptions:
-            sourceType: module
-          env:
-            es2017: true
-            node: true
-            jest: true
-          EOF
-      - run: npx eslint .
+      - run: npm run lint
