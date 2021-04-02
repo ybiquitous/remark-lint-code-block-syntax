@@ -16,7 +16,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "lint": "npx eslint ."
+    "lint": "npx eslint . && npx prettier --check .",
+    "format": "npx prettier --write ."
   },
   "dependencies": {
     "esprima": "^4.0.1",
