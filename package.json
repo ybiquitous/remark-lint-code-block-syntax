@@ -1,6 +1,6 @@
 {
   "name": "remark-lint-code-block-syntax",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A remark-lint rule to check language syntax in a code block.",
   "author": "Masafumi Koba",
   "license": "MIT",
