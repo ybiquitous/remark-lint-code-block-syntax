@@ -38,7 +38,7 @@
     "esprima": "^4.0.1",
     "js-yaml": "^4.0.0",
     "unified-lint-rule": "^1.0.5",
-    "unist-util-visit": "^2.0.2"
+    "unist-util-visit": "^3.0.0"
   },
   "devDependencies": {
     "jest": "^26.0.1",

@@ -1,5 +1,5 @@
 import { default as rule } from "unified-lint-rule";
-import { default as visit } from "unist-util-visit";
+import { visit } from "unist-util-visit";
 import { default as esprima } from "esprima";
 import { default as yaml } from "js-yaml";
 
