@@ -1,7 +1,6 @@
-"use strict";
+import { default as remark } from "remark";
 
-const remark = require("remark");
-const rule = require(".");
+import rule from "./index.js";
 
 const run = (lang, code) => {
   const codeBlock = `\`\`\`${lang}\n${code}\n\`\`\``;
@@ -70,6 +69,8 @@ describe("YAML", () => {
   });
 });
 
-test("unsupported language", () => {
-  expect(run("css", "a{")).toEqual([]);
+describe("Unsupported languages", () => {
+  test("CSS", () => {
+    expect(run("css", "a{")).toEqual([]);
+  });
 });

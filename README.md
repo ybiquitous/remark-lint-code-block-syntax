@@ -18,8 +18,18 @@ $ npm install remark-lint-code-block-syntax
 
 ## Usage
 
+Via a command-line argument:
+
 ```console
-$ npx remark -u remark-lint-code-block-syntax
+$ remark --use remark-lint-code-block-syntax
 docs/config.md
   32:1-32:4  warning  Invalid JSON: Unexpected token a in JSON at position 128  code-block-syntax  remark-lint
+```
+
+Via a configuration file:
+
+```json
+{
+  "plugins": ["remark-lint-code-block-syntax"]
+}
 ```
