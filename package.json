@@ -13,12 +13,26 @@
     "block"
   ],
   "repository": "ybiquitous/remark-lint-code-block-syntax",
-  "main": "index.js",
-  "files": [],
+  "engines": {
+    "node": ">=12"
+  },
+  "main": "./index.cjs",
+  "exports": {
+    "import": "./index.js",
+    "require": "./index.cjs"
+  },
+  "type": "module",
+  "files": [
+    "index.js",
+    "index.cjs"
+  ],
   "scripts": {
-    "test": "jest",
-    "lint": "npx eslint . && npx prettier --check .",
-    "format": "npx prettier --write ."
+    "build": "npx rollup index.js --file=index.cjs --format=cjs --exports=default",
+    "pretest": "npm run build",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "lint": "npx eslint --ignore-path=.gitignore . && npx prettier --ignore-path=.gitignore --check .",
+    "lint:fix": "npx eslint --ignore-path=.gitignore --fix . && npx prettier --ignore-path=.gitignore --write .",
+    "prepublishOnly": "npm test"
   },
   "dependencies": {
     "esprima": "^4.0.1",
@@ -29,5 +43,17 @@
   "devDependencies": {
     "jest": "^26.0.1",
     "remark": "^13.0.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "env": {
+      "es2017": true,
+      "node": true,
+      "jest": true
+    }
   }
 }

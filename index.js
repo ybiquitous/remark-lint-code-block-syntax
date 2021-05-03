@@ -1,11 +1,9 @@
-"use strict";
+import { default as rule } from "unified-lint-rule";
+import { default as visit } from "unist-util-visit";
+import { default as esprima } from "esprima";
+import { default as yaml } from "js-yaml";
 
-const rule = require("unified-lint-rule");
-const visit = require("unist-util-visit");
-const esprima = require("esprima");
-const yaml = require("js-yaml");
-
-module.exports = rule("remark-lint:code-block-syntax", codeSyntax);
+export default rule("remark-lint:code-block-syntax", codeSyntax);
 
 function codeSyntax(tree, file) {
   const supportedLangs = ["js", "json", "yaml"];
