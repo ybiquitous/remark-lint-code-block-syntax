@@ -30,8 +30,13 @@
     "build": "npx rollup index.js --file=index.cjs --format=cjs --exports=default",
     "pretest": "npm run build",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
-    "lint": "npx eslint --ignore-path=.gitignore . && npx prettier --ignore-path=.gitignore --check .",
-    "lint:fix": "npx eslint --ignore-path=.gitignore --fix . && npx prettier --ignore-path=.gitignore --write .",
+    "lint": "npm run eslint && npm run prettier:check",
+    "lint:fix": "npm run eslint:fix && npm run prettier:write",
+    "eslint": "npx eslint --ignore-path=.gitignore .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "prettier": "npx prettier --ignore-path=.gitignore .",
+    "prettier:check": "npm run prettier -- --check",
+    "prettier:write": "npm run prettier -- --write",
     "prepublishOnly": "npm test"
   },
   "dependencies": {
