@@ -1,4 +1,4 @@
-import { default as remark } from "remark";
+import { remark } from "remark";
 
 import rule from "./index.js";
 

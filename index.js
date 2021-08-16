@@ -1,9 +1,10 @@
-import { default as rule } from "unified-lint-rule";
+import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
 import { default as esprima } from "esprima";
 import { default as yaml } from "js-yaml";
 
-export default rule("remark-lint:code-block-syntax", codeSyntax);
+const remarkLintCodeBlockSyntax = lintRule("remark-lint:code-block-syntax", codeSyntax);
+export default remarkLintCodeBlockSyntax;
 
 function codeSyntax(tree, file) {
   const supportedLangs = ["js", "json", "yaml"];
