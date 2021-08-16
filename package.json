@@ -14,21 +14,14 @@
   ],
   "repository": "ybiquitous/remark-lint-code-block-syntax",
   "engines": {
-    "node": ">=12"
-  },
-  "main": "./index.cjs",
-  "exports": {
-    "import": "./index.js",
-    "require": "./index.cjs"
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
   "type": "module",
+  "exports": "./index.js",
   "files": [
-    "index.js",
-    "index.cjs"
+    "index.js"
   ],
   "scripts": {
-    "build": "npx rollup index.js --file=index.cjs --format=cjs --exports=default",
-    "pretest": "npm run build",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "lint": "npm run eslint && npm run prettier:check",
     "lint:fix": "npm run eslint:fix && npm run prettier:write",
@@ -42,12 +35,12 @@
   "dependencies": {
     "esprima": "^4.0.1",
     "js-yaml": "^4.0.0",
-    "unified-lint-rule": "^1.0.5",
-    "unist-util-visit": "^3.0.0"
+    "unified-lint-rule": "^2.0.0",
+    "unist-util-visit": "^4.0.0"
   },
   "devDependencies": {
     "jest": "^27.0.3",
-    "remark": "^13.0.0"
+    "remark": "^14.0.1"
   },
   "eslintConfig": {
     "root": true,
