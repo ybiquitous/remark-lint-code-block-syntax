@@ -3,6 +3,7 @@ name: Test
 on:
   push:
     branches: ["main"]
+    tags: ["**"]
   pull_request:
     branches: ["**"]
 
@@ -22,4 +23,3 @@ jobs:
       - run: npm --global install npm@latest
       - run: npm ci
       - run: npm test
-      - run: npm run release:dry-run
