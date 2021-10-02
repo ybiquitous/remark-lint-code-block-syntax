@@ -52,6 +52,12 @@
       "es2017": true,
       "node": true,
       "jest": true
-    }
+    },
+    "ignorePatterns": [
+      "coverage",
+      "dist",
+      "tmp"
+    ],
+    "reportUnusedDisableDirectives": true
   }
 }
