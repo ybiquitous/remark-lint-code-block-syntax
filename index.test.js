@@ -42,7 +42,7 @@ describe("JavaScript", () => {
       {
         column: 1,
         line: 1,
-        message: "Invalid JavaScript: Line 1: Unexpected end of input",
+        message: expect.stringMatching(/^Invalid JavaScript:/),
         ruleId: "code-block-syntax",
         source: "remark-lint",
       },

@@ -33,7 +33,7 @@
     "prepublishOnly": "npm test"
   },
   "dependencies": {
-    "esprima": "^4.0.1",
+    "@swc/core": "^1.2.171",
     "js-yaml": "^4.0.0",
     "unified-lint-rule": "^2.0.0",
     "unist-util-visit": "^4.0.0"
