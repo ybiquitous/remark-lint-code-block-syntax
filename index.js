@@ -1,6 +1,6 @@
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
-import { default as esprima } from "esprima";
+import { default as swc } from "@swc/core";
 import { default as yaml } from "js-yaml";
 
 const remarkLintCodeBlockSyntax = lintRule("remark-lint:code-block-syntax", codeSyntax);
@@ -43,7 +43,10 @@ function codeSyntax(tree, file) {
 
   function checkJs(code) {
     try {
-      esprima.parseScript(code);
+      swc.parseSync(code, {
+        syntax: "ecmascript",
+        target: "es2022",
+      });
       return null;
     } catch (e) {
       return e.message;
