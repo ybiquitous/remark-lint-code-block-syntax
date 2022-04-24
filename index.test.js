@@ -69,8 +69,26 @@ describe("YAML", () => {
   });
 });
 
+describe("CSS", () => {
+  test("valid", () => {
+    expect(run("css", "a{}")).toEqual([]);
+  });
+
+  test("invalid", () => {
+    expect(run("css", "a{\n}}")).toEqual([
+      {
+        column: 1,
+        line: 1,
+        message: "Invalid CSS: <css input>:2:2: Unexpected }",
+        ruleId: "code-block-syntax",
+        source: "remark-lint",
+      },
+    ]);
+  });
+});
+
 describe("Unsupported languages", () => {
-  test("CSS", () => {
-    expect(run("css", "a{")).toEqual([]);
+  test("Ruby", () => {
+    expect(run("ruby", "a=")).toEqual([]);
   });
 });

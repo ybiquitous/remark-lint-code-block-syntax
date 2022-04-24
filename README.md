@@ -9,6 +9,7 @@ A remark-lint rule to check language syntax in a code block.
 - JavaScript
 - JSON
 - YAML
+- CSS
 
 ## Install
 
