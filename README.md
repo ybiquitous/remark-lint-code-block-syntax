@@ -34,3 +34,23 @@ Via a configuration file:
   "plugins": ["remark-lint-code-block-syntax"]
 }
 ```
+
+Via JavaScript API:
+
+```js
+import { reporter } from "vfile-reporter";
+import { remark } from "remark";
+import remarkLintCodeBlockSyntax from "remark-lint-code-block-syntax";
+
+main();
+
+async function main() {
+  const code = `
+\`\`\`js
+const sum = 1 +;
+\`\`\`
+`;
+  const file = await remark().use(remarkLintCodeBlockSyntax).process(code);
+  console.error(reporter(file));
+}
+```
