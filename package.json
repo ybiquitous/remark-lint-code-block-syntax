@@ -23,6 +23,7 @@
   ],
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:watch": "npm run test -- --watch",
     "lint": "npm run eslint && npm run prettier:check",
     "lint:fix": "npm run eslint:fix && npm run prettier:write",
     "eslint": "npx eslint --ignore-path=.gitignore .",
@@ -35,6 +36,7 @@
   "dependencies": {
     "@swc/core": "^1.2.171",
     "js-yaml": "^4.0.0",
+    "postcss": "^8.4.12",
     "unified-lint-rule": "^2.0.0",
     "unist-util-visit": "^4.0.0"
   },

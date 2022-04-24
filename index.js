@@ -2,36 +2,50 @@ import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
 import { default as swc } from "@swc/core";
 import { default as yaml } from "js-yaml";
+import { default as postcss } from "postcss";
 
 const remarkLintCodeBlockSyntax = lintRule("remark-lint:code-block-syntax", codeSyntax);
 export default remarkLintCodeBlockSyntax;
 
 function codeSyntax(tree, file) {
-  const supportedLangs = ["js", "json", "yaml"];
+  const supportedLangs = ["js", "json", "yaml", "css"];
   const test = supportedLangs.map((lang) => ({ type: "code", lang: lang }));
 
   visit(tree, test, visitor);
 
   function visitor(node) {
-    switch (node.lang) {
+    const report = (reason, language) => {
+      file.message(`Invalid ${language}: ${reason}`, node);
+    };
+
+    const { lang, value } = node;
+
+    switch (lang) {
       case "js": {
-        const reason = checkJs(node.value);
+        const reason = checkJs(value);
         if (reason) {
-          file.message(`Invalid JavaScript: ${reason}`, node);
+          report(reason, "JavaScript");
         }
         break;
       }
       case "json": {
-        const reason = checkJson(node.value);
+        const reason = checkJson(value);
         if (reason) {
-          file.message(`Invalid JSON: ${reason}`, node);
+          report(reason, "JSON");
         }
         break;
       }
       case "yaml": {
-        const reason = checkYaml(node.value);
+        const reason = checkYaml(value);
         if (reason) {
-          file.message(`Invalid YAML: ${reason}`, node);
+          report(reason, "YAML");
+        }
+        break;
+      }
+      case "css": {
+        const reason = checkCss(value);
+        if (reason) {
+          report(reason, "CSS");
         }
         break;
       }
@@ -68,6 +82,15 @@ function codeSyntax(tree, file) {
       return null;
     } catch (e) {
       return e.message.split(/\r?\n/)[0];
+    }
+  }
+
+  function checkCss(code) {
+    try {
+      postcss.parse(code);
+      return null;
+    } catch (e) {
+      return e.message;
     }
   }
 }
