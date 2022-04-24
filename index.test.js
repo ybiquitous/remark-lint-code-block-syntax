@@ -48,6 +48,12 @@ describe("JavaScript", () => {
       },
     ]);
   });
+
+  test("invalid for `javascript` alias", () => {
+    expect(run("javascript", "let a=")).toEqual([
+      expect.objectContaining({ message: expect.stringMatching(/^Invalid JavaScript:/) }),
+    ]);
+  });
 });
 
 describe("YAML", () => {
@@ -65,6 +71,12 @@ describe("YAML", () => {
         ruleId: "code-block-syntax",
         source: "remark-lint",
       },
+    ]);
+  });
+
+  test("invalid for `yml` alias", () => {
+    expect(run("yml", "a:\n-b")).toEqual([
+      expect.objectContaining({ message: expect.stringMatching(/^Invalid YAML:/) }),
     ]);
   });
 });
