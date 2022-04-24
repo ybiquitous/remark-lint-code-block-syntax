@@ -8,7 +8,7 @@ const remarkLintCodeBlockSyntax = lintRule("remark-lint:code-block-syntax", code
 export default remarkLintCodeBlockSyntax;
 
 function codeSyntax(tree, file) {
-  const supportedLangs = ["js", "json", "yaml", "css"];
+  const supportedLangs = ["js", "javascript", "json", "yaml", "yml", "css"];
   const test = supportedLangs.map((lang) => ({ type: "code", lang: lang }));
 
   visit(tree, test, visitor);
@@ -21,7 +21,8 @@ function codeSyntax(tree, file) {
     const { lang, value } = node;
 
     switch (lang) {
-      case "js": {
+      case "js":
+      case "javascript": {
         const reason = checkJs(value);
         if (reason) {
           report(reason, "JavaScript");
@@ -35,7 +36,8 @@ function codeSyntax(tree, file) {
         }
         break;
       }
-      case "yaml": {
+      case "yaml":
+      case "yml": {
         const reason = checkYaml(value);
         if (reason) {
           report(reason, "YAML");
