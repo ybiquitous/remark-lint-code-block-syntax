@@ -2,7 +2,7 @@
 
 # remark-lint-code-block-syntax
 
-A remark-lint rule to check language syntax in a code block.
+A [remark-lint](https://github.com/remarkjs/remark-lint) rule to check language syntax in a code block.
 
 ## Supported languages
 
