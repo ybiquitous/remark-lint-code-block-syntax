@@ -41,7 +41,7 @@
     "unist-util-visit": "^4.0.0"
   },
   "devDependencies": {
-    "jest": "^27.0.3",
+    "jest": "^28.0.3",
     "remark": "^14.0.1"
   },
   "eslintConfig": {
