@@ -6,17 +6,8 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "lts/*"
-          registry-url: "https://registry.npmjs.org"
-          cache: npm
-      - run: npm ci
-      - run: npm run lint
-      - run: npm test
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    uses: ./.github/workflows/nodejs-release-reusable.yml
+    with:
+      create-release: false
+    secrets:
+      npm-token: ${{ secrets.NPM_TOKEN }}
