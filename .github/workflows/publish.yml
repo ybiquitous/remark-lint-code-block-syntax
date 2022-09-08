@@ -6,7 +6,7 @@ on:
 
 jobs:
   publish:
-    uses: ./.github/workflows/nodejs-release-reusable.yml
+    uses: ybiquitous/.github/.github/workflows/nodejs-release-reusable.yml@main
     with:
       create-release: false
     secrets:
