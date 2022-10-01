@@ -36,7 +36,7 @@
   "dependencies": {
     "@swc/core": "^1.2.249",
     "js-yaml": "^4.1.0",
-    "postcss": "^8.4.16",
+    "postcss": "^8.4.17",
     "unified-lint-rule": "^2.1.1",
     "unist-util-visit": "^4.1.1"
   },
