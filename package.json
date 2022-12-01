@@ -34,7 +34,7 @@
     "prepublishOnly": "npm test"
   },
   "dependencies": {
-    "@swc/core": "^1.3.4",
+    "@swc/core": "^1.3.21",
     "js-yaml": "^4.1.0",
     "postcss": "^8.4.17",
     "unified-lint-rule": "^2.1.1",
