@@ -38,7 +38,7 @@
     "js-yaml": "^4.1.0",
     "postcss": "^8.4.29",
     "unified-lint-rule": "^2.1.2",
-    "unist-util-visit": "^4.1.2"
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "jest": "^29.4.1",
