@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "jest": "^29.4.1",
-    "remark": "^14.0.1"
+    "remark": "^14.0.3"
   },
   "eslintConfig": {
     "root": true,
