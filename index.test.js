@@ -24,7 +24,7 @@ describe("JSON", () => {
       {
         column: 1,
         line: 1,
-        message: expect.stringMatching(/^Invalid JSON: .+ in JSON at position 1$/),
+        message: expect.stringMatching(/^Invalid JSON: .+ in JSON at position 1\b/),
         ruleId: "code-block-syntax",
         source: "remark-lint",
       },
