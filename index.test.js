@@ -1,3 +1,6 @@
+import { describe, test } from "node:test";
+import assert from "node:assert/strict";
+
 import { remark } from "remark";
 
 import rule from "./index.js";
@@ -16,53 +19,57 @@ const run = (lang, code) => {
 
 describe("JSON", () => {
   test("valid", () => {
-    expect(run("json", "{}")).toEqual([]);
+    assert.deepEqual(run("json", "{}"), []);
   });
 
   test("invalid", () => {
-    expect(run("json", "{[]}")).toEqual([
-      {
-        column: 1,
-        line: 1,
-        message: expect.stringMatching(/^Invalid JSON: .+ in JSON at position 1\b/),
-        ruleId: "code-block-syntax",
-        source: "remark-lint",
-      },
-    ]);
+    const result = run("json", "{[]}");
+
+    assert.equal(result.length, 1);
+
+    const { message, ...restProps } = result[0];
+    assert.match(message, /^Invalid JSON: .+ in JSON at position 1\b/);
+    assert.deepEqual(restProps, {
+      column: 1,
+      line: 1,
+      ruleId: "code-block-syntax",
+      source: "remark-lint",
+    });
   });
 });
 
 describe("JavaScript", () => {
   test("valid", () => {
-    expect(run("js", "let a=1")).toEqual([]);
+    assert.deepEqual(run("js", "let a=1"), []);
   });
 
   test("invalid", () => {
-    expect(run("js", "let a=")).toEqual([
-      {
-        column: 1,
-        line: 1,
-        message: expect.stringMatching(/^Invalid JavaScript:/),
-        ruleId: "code-block-syntax",
-        source: "remark-lint",
-      },
-    ]);
+    const result = run("js", "let a=");
+
+    assert.equal(result.length, 1);
+
+    const { message, ...restProps } = result[0];
+    assert.match(message, /^Invalid JavaScript:/);
+    assert.deepEqual(restProps, {
+      column: 1,
+      line: 1,
+      ruleId: "code-block-syntax",
+      source: "remark-lint",
+    });
   });
 
   test("invalid for `javascript` alias", () => {
-    expect(run("javascript", "let a=")).toEqual([
-      expect.objectContaining({ message: expect.stringMatching(/^Invalid JavaScript:/) }),
-    ]);
+    assert.match(run("javascript", "let a=")[0].message, /^Invalid JavaScript:/);
   });
 });
 
 describe("YAML", () => {
   test("valid", () => {
-    expect(run("yaml", "{}")).toEqual([]);
+    assert.deepEqual(run("yaml", "{}"), []);
   });
 
   test("invalid", () => {
-    expect(run("yaml", "a:\n-b")).toEqual([
+    assert.deepEqual(run("yaml", "a:\n-b"), [
       {
         column: 1,
         line: 1,
@@ -75,19 +82,17 @@ describe("YAML", () => {
   });
 
   test("invalid for `yml` alias", () => {
-    expect(run("yml", "a:\n-b")).toEqual([
-      expect.objectContaining({ message: expect.stringMatching(/^Invalid YAML:/) }),
-    ]);
+    assert.match(run("yml", "a:\n-b")[0].message, /^Invalid YAML:/);
   });
 });
 
 describe("CSS", () => {
   test("valid", () => {
-    expect(run("css", "a{}")).toEqual([]);
+    assert.deepEqual(run("css", "a{}"), []);
   });
 
   test("invalid", () => {
-    expect(run("css", "a{\n}}")).toEqual([
+    assert.deepEqual(run("css", "a{\n}}"), [
       {
         column: 1,
         line: 1,
@@ -101,6 +106,6 @@ describe("CSS", () => {
 
 describe("Unsupported languages", () => {
   test("Ruby", () => {
-    expect(run("ruby", "a=")).toEqual([]);
+    assert.deepEqual(run("ruby", "a="), []);
   });
 });
