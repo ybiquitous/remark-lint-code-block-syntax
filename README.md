@@ -62,10 +62,13 @@ This section is for developers or maintainers.
 
 ### Releasing
 
-1. Start [editing a new GitHub release](https://github.com/ybiquitous/remark-lint-code-block-syntax/releases/new)
-2. Create a new tag in **Choose a tag**
-3. Click **Generate release notes**
-4. Remove trivial change items from the release notes
-5. Click **Save draft**
-6. Double-check the draft release
-7. Click **Publish release** if you find no problems (GitHub Actions will start publishing automatically)
+1. Check out the latest code on your local repository
+2. Run `npm version <next_version>`
+3. Run `git push --follow-tags`
+4. Start [editing a new GitHub release](https://github.com/ybiquitous/remark-lint-code-block-syntax/releases/new)
+5. Chose the new tag
+6. Click **Generate release notes**
+7. Remove trivial change items from the release notes
+8. Click **Save draft**
+9. Double-check the draft release
+10. Click **Publish release** if you find no problems (GitHub Actions will start publishing automatically)
