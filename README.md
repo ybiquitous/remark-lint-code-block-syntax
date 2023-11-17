@@ -14,15 +14,15 @@ A [remark-lint](https://github.com/remarkjs/remark-lint) rule to check language 
 
 ## Install
 
-```console
-$ npm install remark-lint-code-block-syntax
+```shell
+npm install remark-lint-code-block-syntax
 ```
 
 ## Usage
 
 Via a command-line argument:
 
-```console
+```sh-session
 $ remark --use remark-lint-code-block-syntax
 docs/config.md
   32:1-32:4  warning  Invalid JSON: Unexpected token a in JSON at position 128  code-block-syntax  remark-lint
