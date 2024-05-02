@@ -5,7 +5,7 @@ export default [
     ...js.configs.recommended,
     ignores: ["coverage", "dist", "tmp"],
     linterOptions: {
-      reportUnusedDisableDirectives: true,
+      reportUnusedDisableDirectives: "error",
     },
   },
 ];
