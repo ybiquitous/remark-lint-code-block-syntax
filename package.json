@@ -42,7 +42,7 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "eslint": "^9.8.0",
+    "eslint": "^9.9.1",
     "remark": "^15.0.1"
   }
 }
