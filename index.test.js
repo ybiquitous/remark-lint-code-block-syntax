@@ -57,6 +57,24 @@ describe("JSONC", () => {
   });
 });
 
+describe("JSON5", () => {
+  test("valid", () => {
+    assert.deepEqual(run("json5", "{} // comment"), []);
+  });
+
+  test("invalid", () => {
+    assert.deepEqual(run("json5", "{[\n}}"), [
+      {
+        column: 1,
+        line: 1,
+        message: "Invalid JSON5: JSON5: invalid character '[' at 1:2",
+        ruleId: "code-block-syntax",
+        source: "remark-lint",
+      },
+    ]);
+  });
+});
+
 describe("JavaScript", () => {
   test("valid", () => {
     assert.deepEqual(run("js", "let a=1"), []);

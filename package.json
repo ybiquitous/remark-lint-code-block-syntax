@@ -37,6 +37,7 @@
   "dependencies": {
     "@swc/core": "^1.7.22",
     "js-yaml": "^4.1.0",
+    "json5": "^2.2.3",
     "jsonc-parser": "^3.3.1",
     "postcss": "^8.4.43",
     "unified-lint-rule": "^3.0.0",

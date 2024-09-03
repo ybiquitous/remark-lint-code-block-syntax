@@ -4,12 +4,13 @@ import { default as swc } from "@swc/core";
 import { default as yaml } from "js-yaml";
 import { default as postcss } from "postcss";
 import { default as jsonc } from "jsonc-parser";
+import { default as JSON5 } from "json5";
 
 const remarkLintCodeBlockSyntax = lintRule("remark-lint:code-block-syntax", codeSyntax);
 export default remarkLintCodeBlockSyntax;
 
 function codeSyntax(tree, file) {
-  const supportedLangs = ["js", "javascript", "json", "jsonc", "yaml", "yml", "css"];
+  const supportedLangs = ["js", "javascript", "json", "jsonc", "json5", "yaml", "yml", "css"];
   const test = supportedLangs.map((lang) => ({ type: "code", lang }));
 
   visit(tree, test, visitor);
@@ -41,6 +42,13 @@ function codeSyntax(tree, file) {
         const reason = checkJsonc(value);
         if (reason) {
           report(reason, "JSONC");
+        }
+        break;
+      }
+      case "json5": {
+        const reason = checkJson5(value);
+        if (reason) {
+          report(reason, "JSON5");
         }
         break;
       }
@@ -96,6 +104,15 @@ function codeSyntax(tree, file) {
         },
       });
       return errors.length === 0 ? null : errors.join(", ");
+    } catch (e) {
+      return e.message;
+    }
+  }
+
+  function checkJson5(code) {
+    try {
+      JSON5.parse(code);
+      return null;
     } catch (e) {
       return e.message;
     }
