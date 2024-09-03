@@ -3,13 +3,14 @@ import { visit } from "unist-util-visit";
 import { default as swc } from "@swc/core";
 import { default as yaml } from "js-yaml";
 import { default as postcss } from "postcss";
+import { default as jsonc } from "jsonc-parser";
 
 const remarkLintCodeBlockSyntax = lintRule("remark-lint:code-block-syntax", codeSyntax);
 export default remarkLintCodeBlockSyntax;
 
 function codeSyntax(tree, file) {
-  const supportedLangs = ["js", "javascript", "json", "yaml", "yml", "css"];
-  const test = supportedLangs.map((lang) => ({ type: "code", lang: lang }));
+  const supportedLangs = ["js", "javascript", "json", "jsonc", "yaml", "yml", "css"];
+  const test = supportedLangs.map((lang) => ({ type: "code", lang }));
 
   visit(tree, test, visitor);
 
@@ -33,6 +34,13 @@ function codeSyntax(tree, file) {
         const reason = checkJson(value);
         if (reason) {
           report(reason, "JSON");
+        }
+        break;
+      }
+      case "jsonc": {
+        const reason = checkJsonc(value);
+        if (reason) {
+          report(reason, "JSONC");
         }
         break;
       }
@@ -73,6 +81,21 @@ function codeSyntax(tree, file) {
     try {
       JSON.parse(code);
       return null;
+    } catch (e) {
+      return e.message;
+    }
+  }
+
+  function checkJsonc(code) {
+    try {
+      const errors = [];
+      jsonc.visit(code, {
+        onError(errorCode, _offset, _length, startLine, startCharacter) {
+          const reason = jsonc.printParseErrorCode(errorCode);
+          errors.push(`${reason} (${startLine + 1}:${startCharacter + 1})`);
+        },
+      });
+      return errors.length === 0 ? null : errors.join(", ");
     } catch (e) {
       return e.message;
     }

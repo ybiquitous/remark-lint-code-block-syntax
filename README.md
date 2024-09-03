@@ -9,6 +9,7 @@ A [remark-lint](https://github.com/remarkjs/remark-lint) rule to check language 
 
 - JavaScript
 - JSON
+- JSONC
 - YAML
 - CSS
 
