@@ -38,6 +38,25 @@ describe("JSON", () => {
   });
 });
 
+describe("JSONC", () => {
+  test("valid", () => {
+    assert.deepEqual(run("jsonc", "{} // comment"), []);
+  });
+
+  test("invalid", () => {
+    assert.deepEqual(run("jsonc", "{[\n}}"), [
+      {
+        column: 1,
+        line: 1,
+        message:
+          "Invalid JSONC: PropertyNameExpected (1:2), ValueExpected (2:1), EndOfFileExpected (2:2)",
+        ruleId: "code-block-syntax",
+        source: "remark-lint",
+      },
+    ]);
+  });
+});
+
 describe("JavaScript", () => {
   test("valid", () => {
     assert.deepEqual(run("js", "let a=1"), []);
