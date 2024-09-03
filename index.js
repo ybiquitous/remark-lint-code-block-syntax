@@ -61,7 +61,7 @@ function codeSyntax(tree, file) {
     try {
       swc.parseSync(code, {
         syntax: "ecmascript",
-        target: "es2022",
+        target: "esnext",
       });
       return null;
     } catch (e) {
