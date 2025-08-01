@@ -35,7 +35,7 @@
     "prepublishOnly": "npm test"
   },
   "dependencies": {
-    "@swc/core": "^1.12.9",
+    "@swc/core": "^1.13.3",
     "js-yaml": "^4.1.0",
     "json5": "^2.2.3",
     "jsonc-parser": "^3.3.1",
