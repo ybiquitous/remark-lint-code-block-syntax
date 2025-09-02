@@ -9,5 +9,5 @@ jobs:
     if: ${{ contains(github.head_ref, 'dependabot/npm_and_yarn/') }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: ybiquitous/npm-diff-action@v1
