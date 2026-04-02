@@ -8,6 +8,9 @@ jobs:
   post-comment:
     if: ${{ contains(github.head_ref, 'dependabot/npm_and_yarn/') }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: ybiquitous/npm-diff-action@v1
+      - uses: ybiquitous/npm-diff-action@557115f4fa45f871da20c66d77be11812d7d06fa # v1.7.3
