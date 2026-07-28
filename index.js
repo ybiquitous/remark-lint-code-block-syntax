@@ -1,7 +1,7 @@
 import { lintRule } from "unified-lint-rule";
 import { visit } from "unist-util-visit";
 import { default as swc } from "@swc/core";
-import { default as yaml } from "js-yaml";
+import * as yaml from "js-yaml";
 import { default as postcss } from "postcss";
 import { default as jsonc } from "jsonc-parser";
 import { default as JSON5 } from "json5";
