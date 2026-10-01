@@ -39,7 +39,7 @@
     "js-yaml": "^5.4.1",
     "json5": "^2.2.3",
     "jsonc-parser": "^3.3.1",
-    "postcss": "^8.5.18",
+    "postcss": "^8.5.28",
     "unified-lint-rule": "^3.0.1",
     "unist-util-visit": "^5.1.0"
   },
