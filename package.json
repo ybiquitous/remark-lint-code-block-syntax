@@ -35,18 +35,18 @@
     "prepublishOnly": "npm test"
   },
   "dependencies": {
-    "@swc/core": "^1.16.1",
-    "js-yaml": "^5.4.1",
+    "@swc/core": "^1.16.2",
+    "js-yaml": "^5.4.2",
     "json5": "^2.2.3",
     "jsonc-parser": "^3.3.1",
-    "postcss": "^8.5.18",
+    "postcss": "^8.5.28",
     "unified-lint-rule": "^3.0.1",
     "unist-util-visit": "^5.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "eslint": "^10.9.1",
-    "prettier": "^3.9.6",
+    "eslint": "^10.11.0",
+    "prettier": "^3.9.9",
     "remark": "^15.0.1"
   },
   "publishConfig": {
