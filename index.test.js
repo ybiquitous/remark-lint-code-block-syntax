@@ -160,6 +160,26 @@ describe("Diff", () => {
     assert.deepEqual(run("diff", diff), []);
   });
 
+  test("valid relaxed addition", () => {
+    const diff = code`
+{
++  "color": "blue"
+}
+`;
+
+    assert.deepEqual(run("diff", diff), []);
+  });
+
+  test("valid relaxed deletion", () => {
+    const diff = code`
+{
+-  "color": "red"
+}
+`;
+
+    assert.deepEqual(run("diff", diff), []);
+  });
+
   test("valid minimal", () => {
     const diff = code`
 --- a/config.json
