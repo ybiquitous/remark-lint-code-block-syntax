@@ -11,7 +11,10 @@ const remarkLintCodeBlockSyntax = lintRule("remark-lint:code-block-syntax", code
 export default remarkLintCodeBlockSyntax;
 
 function codeSyntax(tree, file) {
-  visit(tree, "code", visitor);
+  const supportedLangs = ["js", "javascript", "json", "jsonc", "json5", "yaml", "yml", "css", "diff"];
+  const test = supportedLangs.map((lang) => ({ type: "code", lang }));
+
+  visit(tree, test, visitor);
 
   function visitor(node) {
     for (const { language, reason, position } of checkSyntax(node)) {
