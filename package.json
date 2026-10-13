@@ -19,7 +19,8 @@
   "type": "module",
   "exports": "./index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "lib"
   ],
   "scripts": {
     "pretest": "npm run lint",
@@ -39,6 +40,7 @@
     "js-yaml": "^5.4.2",
     "json5": "^2.2.3",
     "jsonc-parser": "^3.3.1",
+    "parse-diff": "^0.12.0",
     "postcss": "^8.5.28",
     "unified-lint-rule": "^3.0.1",
     "unist-util-visit": "^5.1.0"

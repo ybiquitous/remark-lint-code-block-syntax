@@ -5,6 +5,16 @@ import { remark } from "remark";
 
 import rule from "./index.js";
 
+function code(strings, ...values) {
+  let value = strings[0];
+
+  for (const [index, interpolation] of values.entries()) {
+    value += interpolation + strings[index + 1];
+  }
+
+  return value.startsWith("\n") ? value.slice(1) : value;
+}
+
 const run = (lang, code) => {
   const codeBlock = `\`\`\`${lang}\n${code}\n\`\`\``;
   const res = remark().use(rule).processSync(codeBlock);
@@ -95,7 +105,7 @@ describe("JavaScript", () => {
     });
   });
 
-  test("invalid for `javascript` alias", () => {
+  test("invalid alias", () => {
     assert.match(run("javascript", "let a=")[0].message, /^Invalid JavaScript:/);
   });
 });
@@ -117,7 +127,7 @@ describe("YAML", () => {
     ]);
   });
 
-  test("invalid for `yml` alias", () => {
+  test("invalid alias", () => {
     assert.match(run("yml", "a:\n-b")[0].message, /^Invalid YAML:/);
   });
 });
@@ -133,6 +143,94 @@ describe("CSS", () => {
         column: 1,
         line: 1,
         message: "Invalid CSS: <css input>:2:2: Unexpected }",
+        ruleId: "code-block-syntax",
+        source: "remark-lint",
+      },
+    ]);
+  });
+});
+
+describe("Diff", () => {
+  test("valid relaxed", () => {
+    const diff = code`
+-  "color": "red"
++  "color": "blue"
+`;
+
+    assert.deepEqual(run("diff", diff), []);
+  });
+
+  test("valid minimal", () => {
+    const diff = code`
+--- a/config.json
++++ b/config.json
+@@ -1 +1 @@
+-  "color": "red"
++  "color": "blue"
+`;
+
+    assert.deepEqual(run("diff", diff), []);
+  });
+
+  test("valid full", () => {
+    const diff = code`
+diff --git a/config.json b/config.json
+index 1111111..2222222 100644
+--- a/config.json
++++ b/config.json
+@@ -1,3 +1,3 @@
+ {
+-  "color": "red"
++  "color": "blue"
+ }
+`;
+
+    assert.deepEqual(run("diff", diff), []);
+  });
+
+  test("invalid", () => {
+    const diff = code`
+ {
+ -  "color": "red"
+ +  "color": "blue"
+ }
+`;
+    const result = run("diff", diff);
+
+    assert.deepEqual(result, [
+      {
+        line: 3,
+        column: 2,
+        message: "Diff marker must be in column 1, but is in column 2",
+        ruleId: "code-block-syntax",
+        source: "remark-lint",
+      },
+    ]);
+  });
+
+  test("invalid relaxed diff marker", () => {
+    const diff = code`
+ -  "color": "red"
++  "color": "blue"
+`;
+
+    assert.deepEqual(run("diff", diff), [
+      {
+        line: 2,
+        column: 2,
+        message: "Diff marker must be in column 1, but is in column 2",
+        ruleId: "code-block-syntax",
+        source: "remark-lint",
+      },
+    ]);
+  });
+
+  test("invalid parse failure", () => {
+    assert.deepEqual(run("diff", "not a unified diff"), [
+      {
+        column: 1,
+        line: 1,
+        message: "Unable to parse unified diff",
         ruleId: "code-block-syntax",
         source: "remark-lint",
       },
