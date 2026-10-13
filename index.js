@@ -5,71 +5,67 @@ import * as yaml from "js-yaml";
 import { default as postcss } from "postcss";
 import { default as jsonc } from "jsonc-parser";
 import { default as JSON5 } from "json5";
+import { parseDiff } from "./lib/parse-diff.js";
 
 const remarkLintCodeBlockSyntax = lintRule("remark-lint:code-block-syntax", codeSyntax);
 export default remarkLintCodeBlockSyntax;
 
 function codeSyntax(tree, file) {
-  const supportedLangs = ["js", "javascript", "json", "jsonc", "json5", "yaml", "yml", "css"];
+  const supportedLangs = [
+    "js",
+    "javascript",
+    "json",
+    "jsonc",
+    "json5",
+    "yaml",
+    "yml",
+    "css",
+    "diff",
+  ];
   const test = supportedLangs.map((lang) => ({ type: "code", lang }));
 
   visit(tree, test, visitor);
 
   function visitor(node) {
-    const report = (reason, language) => {
-      file.message(`Invalid ${language}: ${reason}`, node);
-    };
+    for (const { language, reason, position } of checkSyntax(node)) {
+      const message = language === "Diff" ? reason : `Invalid ${language}: ${reason}`;
 
-    const { lang, value } = node;
+      file.message(message, position ?? node);
+    }
+  }
 
-    switch (lang) {
+  function checkSyntax(node) {
+    switch (node.lang) {
       case "js":
       case "javascript": {
-        const reason = checkJs(value);
-        if (reason) {
-          report(reason, "JavaScript");
-        }
-        break;
+        const reason = checkJs(node.value);
+        return reason ? [{ language: "JavaScript", reason }] : [];
       }
       case "json": {
-        const reason = checkJson(value);
-        if (reason) {
-          report(reason, "JSON");
-        }
-        break;
+        const reason = checkJson(node.value);
+        return reason ? [{ language: "JSON", reason }] : [];
       }
       case "jsonc": {
-        const reason = checkJsonc(value);
-        if (reason) {
-          report(reason, "JSONC");
-        }
-        break;
+        const reason = checkJsonc(node.value);
+        return reason ? [{ language: "JSONC", reason }] : [];
       }
       case "json5": {
-        const reason = checkJson5(value);
-        if (reason) {
-          report(reason, "JSON5");
-        }
-        break;
+        const reason = checkJson5(node.value);
+        return reason ? [{ language: "JSON5", reason }] : [];
       }
       case "yaml":
       case "yml": {
-        const reason = checkYaml(value);
-        if (reason) {
-          report(reason, "YAML");
-        }
-        break;
+        const reason = checkYaml(node.value);
+        return reason ? [{ language: "YAML", reason }] : [];
       }
       case "css": {
-        const reason = checkCss(value);
-        if (reason) {
-          report(reason, "CSS");
-        }
-        break;
+        const reason = checkCss(node.value);
+        return reason ? [{ language: "CSS", reason }] : [];
       }
+      case "diff":
+        return checkDiff(node);
       default:
-        // ignore
-        break;
+        return [];
     }
   }
 
@@ -134,5 +130,30 @@ function codeSyntax(tree, file) {
     } catch (e) {
       return e.message;
     }
+  }
+
+  function checkDiff(node) {
+    const diff = parseDiff(node.value);
+
+    if (diff.parseFailed) {
+      return [{ language: "Diff", reason: "Unable to parse unified diff" }];
+    }
+
+    const [markerError] = diff.markerErrors;
+
+    if (!markerError) return [];
+
+    const { line, column } = markerError;
+
+    return [
+      {
+        language: "Diff",
+        reason: `Diff marker must be in column 1, but is in column ${column + 1}`,
+        position: {
+          line: node.position.start.line + line + 1,
+          column: node.position.start.column + column,
+        },
+      },
+    ];
   }
 }

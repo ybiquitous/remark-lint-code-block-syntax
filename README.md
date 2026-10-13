@@ -13,6 +13,7 @@ A [remark-lint](https://github.com/remarkjs/remark-lint) rule to check language 
 - JSON5
 - YAML
 - CSS
+- Diff (unified diff)
 
 ## Install
 
