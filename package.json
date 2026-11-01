@@ -46,7 +46,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.11.0",
-    "prettier": "^3.9.9",
+    "prettier": "^3.9.10",
     "remark": "^15.0.1"
   },
   "publishConfig": {
